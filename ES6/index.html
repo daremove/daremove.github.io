@@ -1,0 +1,726 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>ES6</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+        
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <link rel="stylesheet" href="css/main.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+                    <h1>ECMAScript 6</h1>
+                    <h2>(ES2015+)</h2>
+                    <h2>(ES6)</h2>
+                </section>
+				<section class="browsers">
+                    <section>
+                        <h2>Browsers Support</h2>
+				        <img src="img/browsers.png" alt="browsers">
+                    </section>
+				     <section>
+                        <img src="img/support.png" alt="support">
+				    </section>
+				    <section>
+                        <img src="img/caniuse1.jpg" alt="support">
+				    </section>
+				    <section>
+                        <img src="img/caniuse2.jpg" alt="support">
+				    </section>
+				    <section>
+                        <img src="img/caniuse3.jpg" alt="support">
+				    </section>
+				    <section>
+                        <img src="img/caniuse4.jpg" alt="support">
+				    </section>
+				    <section>
+                        <img src="img/babel.jpg" alt="support">
+				    </section>
+				</section>
+				<section>
+				    <section class="mark"><h1>Переменные: <br>let и const</h1></section>
+				    <section class="flex">
+                    <p class="paragraph">let</p>
+				        <pre><code>
+ES5
+
+var x = 'outer';
+
+function test(inner) {
+  if (inner) {
+    var x = 'inner'; // scope whole function
+    return x;
+  }
+  return x; // gets redefined on line 4
+}
+
+test(false); // undefined 
+test(true); // inner
+                    </code>
+				        </pre> <pre><code>
+ES6
+
+let x = 'outer';
+
+function test(inner) {
+  if (inner) {
+    let x = 'inner';
+    return x;
+  }
+  return x; // gets result from line 1 as expected
+}
+
+test(false); // outer
+test(true); // inner</code></pre> <!-- .element: class="fragment" -->
+                       
+				    </section>
+				    <section class="flex">
+                    <p class="paragraph">let</p>
+				        <pre><code>
+ES5
+
+(function(){
+  var private2 = 1;
+})();
+
+console.log(private2); // Uncaught ReferenceError
+				        </code></pre> 
+				        <pre><code>
+ES6
+
+{
+  let private3 = 1;
+}
+
+console.log(private3); // Uncaught ReferenceError
+                        </code></pre> <!-- .element: class="fragment" -->
+                         <hr>
+                         <p class="paragraph">const</p>
+                        <pre><code>
+ES5
+
+var COLOR_RED = "#F00";
+var COLOR_GREEN = "#0F0";
+var COLOR_BLUE = "#00F";
+var COLOR_ORANGE = "#FF7F00";
+                        </code></pre> <!-- .element: class="fragment" -->
+                        <pre><code>
+ES6
+
+const first = 'Adrian';
+const last = 'Mejia';
+                       </code> </pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				</section>
+				<section>
+				    <section>
+				        <h1>Destructuring Assignment</h1>
+				    </section>
+				    <section class="flex">
+                        <p class="paragraph">Получение элемента из массива</p>
+                            <pre><code>
+ES5
+
+var array = [1, 2, 3, 4];
+
+var first = array[0];
+var third = array[2];
+
+console.log(first, third); // 1 3
+                           </code> </pre>
+                            <pre><code>
+ES6
+
+const array = [1, 2, 3, 4];
+
+const [first, ,third] = array;
+
+console.log(first, third); // 1 3
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section class="flex">
+				        
+                            <p class="paragraph">Обмен значениями</p>
+                            <pre><code>
+ES5
+
+var a = 1;
+var b = 2;
+
+var tmp = a;
+a = b;
+b = tmp;
+
+console.log(a, b); // 2 1
+                            </code></pre> <!-- .element: class="fragment" -->
+                            <pre><code>
+ES6
+
+let a = 1;
+let b = 2;
+
+[a, b] = [b, a];
+
+console.log(a, b); // 2 1
+                           </code> </pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section  class="flex">
+
+                        <p class="paragraph">Деструктуризация нескольких возвращаемых значений</p> 
+                            <pre><code>
+ES5
+
+function margin() {
+  var left=1, right=2, top=3, bottom=4;
+  return { left: left, right: right, 
+  top: top, bottom: bottom };
+}
+
+var data = margin();
+var left = data.left;
+var bottom = data.bottom;
+
+console.log(left, bottom); // 1 4
+                            </code></pre>
+                            <pre><code>
+ES6
+
+function margin() {
+  const left=1, right=2, top=3, bottom=4;
+  return { left, right, top, bottom };
+}
+
+const { left, bottom } = margin();
+
+console.log(left, bottom); // 1 4
+                            </code></pre> <!-- .element: class="fragment" -->
+
+                    </section>
+                    <section  class="flex">
+  
+                        <p class="paragraph">Деструктуризация и сопоставление параметров</p>
+                            <pre><code>
+ES5
+
+var user = {firstName: 'Adrian', lastName: 'Mejia'};
+
+function getFullName(user) {
+  var firstName = user.firstName;
+  var lastName = user.lastName;
+
+  return firstName + ' ' + lastName;
+}
+
+console.log(getFullName(user)); // Adrian Mejia
+                           </code></pre>
+                            <pre><code>
+ES6
+
+const user = {firstName: 'Adrian', lastName: 'Mejia'};
+
+function getFullName({ firstName, lastName }) {
+  return `${firstName} ${lastName}`;
+}
+
+console.log(getFullName(user)); // Adrian Mejia
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section class="flex">
+
+                        <p class="paragraph">Глубокое сопоставление</p>
+                            <pre><code>
+ES5
+
+function settings() {
+  return { display: { color: 'red' }, 
+  keyboard: { layout: 'querty'} };
+}
+
+var tmp = settings();
+var displayColor = tmp.display.color;
+var keyboardLayout = tmp.keyboard.layout;
+
+console.log(displayColor, keyboardLayout); // red querty
+                           </code></pre>
+                            <pre><code>
+ES6
+
+function settings() {
+  return { display: { color: 'red' }, 
+  keyboard: { layout: 'querty'} };
+}
+
+const { display: { color: displayColor },
+keyboard: { layout: keyboardLayout }} = settings();
+
+console.log(displayColor, keyboardLayout); // red querty
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				</section>
+				<section>
+				    <section>
+				        <h1>Functions</h1>
+				    </section>
+				    <section  class="flex">
+
+                        <p class="paragraph">Стрелочные функции</p>
+                            <pre><code>
+ES5
+
+var _this = this; // need to hold a reference
+
+$('.btn').click(function(event){
+  _this.sendData(); // reference outer this
+});
+
+$('.input').on('change',function(event){
+  this.sendData(); // reference outer this
+}.bind(this)); // bind to outer this
+                            </code></pre>
+                            <pre><code>
+ES6
+
+// this will reference the outer one
+$('.btn').click((event) =>  this.sendData());
+
+// implicit returns
+const ids = [291, 288, 984];
+const messages = ids.map(value => `ID is ${value}`);
+                           </code> </pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section class="flex">
+
+                        <p class="paragraph">For…of</p>
+                            <pre><code>
+ES5
+
+// for
+var array = ['a', 'b', 'c', 'd'];
+for (var i = 0; i < array.length; i++) {
+  var element = array[i];
+  console.log(element);
+}
+
+// forEach
+array.forEach(function (element) {
+  console.log(element);
+});
+                            </code></pre>
+                            <pre><code>
+ES6
+
+// for ...of
+const array = ['a', 'b', 'c', 'd'];
+for (const element of array) {
+    console.log(element);
+}
+                           </code> </pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section  class="flex">
+
+                        <p class="paragraph">Параметры по умолчанию</p>
+                            <pre><code>
+ES5
+
+function point(x, y, isFlag){
+  x = x || 0;
+  y = y || -1;
+  isFlag = isFlag || true;
+  console.log(x,y, isFlag);
+}
+
+point(0, 0) // 0 -1 true 
+point(0, 0, false) // 0 -1 true 
+point(1) // 1 -1 true
+point() // 0 -1 true
+                            </code></pre>
+                            <pre><code>
+ES6
+
+function point(x = 0, y = -1, isFlag = true){
+  console.log(x,y, isFlag);
+}
+
+point(0, 0) // 0 0 true
+point(0, 0, false) // 0 0 false
+point(1) // 1 -1 true
+point() // 0 -1 true
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section class="flex">
+
+                        <p class="paragraph">Rest-параметры</p>
+                            <pre><code>
+ES5
+
+function printf(format) {
+  var params = [].slice.call(arguments, 1);
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+
+printf('%s %d %.2f', 'adrian', 321, Math.PI);
+                            </code></pre>
+                            <pre><code>
+ES6
+
+function printf(format, ...params) {
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+
+printf('%s %d %.2f', 'adrian', 321, Math.PI);
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section  class="flex">
+
+                        <p class="paragraph">Операция Spread</p>
+                            <pre><code>
+ES5
+
+Math.max.apply(Math, [2,100,1,6,43]) // 100
+                            </code></pre>
+                            <pre><code>
+ES6
+
+Math.max(...[2,100,1,6,43]) // 100
+                           </code></pre> <!-- .element: class="fragment" -->
+                            <hr>
+                            <pre><code>
+ES5
+
+var array1 = [2,100,1,6,43];
+var array2 = ['a', 'b', 'c', 'd'];
+var array3 = [false, true, null, undefined];
+
+console.log(array1.concat(array2, array3));
+                            </code></pre> <!-- .element: class="fragment" -->
+                            <pre><code>
+ES6
+
+const array1 = [2,100,1,6,43];
+const array2 = ['a', 'b', 'c', 'd'];
+const array3 = [false, true, null, undefined];
+
+console.log([...array1, ...array2, ...array3]);
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				</section>
+				<section>
+				    <section>
+				        <h1>Template Literals</h1>
+				    </section>
+				    <section  class="flex">
+
+                        <p class="paragraph">Бэктик</p>
+                            <pre><code>
+ES5
+
+var first = 'Adrian';
+var last = 'Mejia';
+console.log('Your name is ' + first + ' ' + last + '.');
+                            </code></pre>
+                            <pre><code>
+ES6
+
+const first = 'Adrian';
+const last = 'Mejia';
+console.log(`Your name is ${first} ${last}.`);
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				</section>
+				<section>
+				    <section>
+				        <h1>classes and objects</h1>
+				    </section>
+				    <section  class="flex">
+
+                            <pre><code>
+ES5
+
+var Animal = (function () {
+  function MyConstructor(name) {
+    this.name = name;
+  }
+  MyConstructor.prototype.speak = function speak() {
+    console.log(this.name + ' makes a noise.');
+  };
+  return MyConstructor;
+})();
+
+var animal = new Animal('animal');
+animal.speak(); // animal makes a noise.
+                            </code></pre>
+                            <pre><code>
+ES6
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+const animal = new Animal('animal');
+animal.speak(); // animal makes a noise.
+                           </code> </pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				    <section class="flex">
+
+                        <p class="paragraph">Наследование</p>
+                            <pre><code>
+ES5
+
+var Lion = (function () {
+  function MyConstructor(name){
+    Animal.call(this, name);
+  }
+
+  // prototypal inheritance
+  MyConstructor.prototype = 
+  Object.create(Animal.prototype);
+  MyConstructor.prototype.constructor = Animal;
+
+  MyConstructor.prototype.speak = function speak() {
+    Animal.prototype.speak.call(this);
+    console.log(this.name + ' roars ');
+  };
+  return MyConstructor;
+})();
+
+var lion = new Lion('Simba');
+lion.speak(); // Simba makes a noise.
+// Simba roars.
+                            </code></pre>
+                            <pre><code>
+ES6
+
+class Lion extends Animal {
+  speak() {
+    super.speak();
+    console.log(this.name + ' roars ');
+  }
+}
+
+const lion = new Lion('Simba');
+lion.speak(); // Simba makes a noise.
+// Simba roars.
+                            </code></pre> <!-- .element: class="fragment" -->
+
+				    </section>
+				</section>
+				<section>
+                    <section>
+                        <h1>Promise</h1>
+                    </section>
+				    <section class="flex flex--one">
+				    <pre><code>
+'use strict';
+
+// Создаётся объект promise
+let promise = new Promise((resolve, reject) => {
+
+  setTimeout(() => {
+    // переведёт промис в состояние fulfilled с результатом "result"
+    resolve("result");
+  }, 1000);
+
+});
+
+// promise.then навешивает обработчики на успешный результат или ошибку
+promise
+  .then(
+    result => {
+      // первая функция-обработчик - запустится при вызове resolve
+      alert("Fulfilled: " + result); // result - аргумент resolve
+    },
+    error => {
+      // вторая функция - запустится при вызове reject
+      alert("Rejected: " + error); // error - аргумент reject
+    }
+  );
+				    </code></pre>
+				</section>
+				</section>
+				<section>
+				    <section>
+				        <h1>Generators</h1>
+				    </section>
+				    <section class="flex flex--one">
+				        <pre><code>
+function* generateSequence() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+let generator = generateSequence();
+
+let one = generator.next();
+
+alert(JSON.stringify(one)); // {value: 1, done: false}
+				        </code></pre>
+				    </section>
+				</section>
+				<section>
+				    <section>
+				        <h1>modules</h1>
+				    </section>
+				    <section class="flex flex--one">
+				        <pre><code>
+Export
+
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+};
+
+export function sayHi() {
+  alert("Hello!");
+};
+
+// отдельно от объявлений было бы так:
+// export {User, sayHi}
+				       </code></pre>
+				        <pre><code>
+Import
+
+import {one, two} from "./nums";
+
+alert( `${one} and ${two}` ); // 1 and 2
+				        </code></pre>
+				    </section>
+				</section>
+				
+				<section>
+				    <section>
+				        <h1>Proxy</h1>
+				    </section>
+				    <section class="flex flex--one">
+				        <pre><code>
+'use strict';
+
+let user = {};
+
+let proxy = new Proxy(user, {
+  get(target, prop) {
+    alert(`Чтение ${prop}`);
+    return target[prop];
+  },
+  set(target, prop, value) {
+    alert(`Запись ${prop} ${value}`);
+    target[prop] = value;
+    return true;
+  }
+});
+
+proxy.firstName = "Ilya"; // запись
+
+proxy.firstName; // чтение
+
+alert(user.firstName); // Ilya
+				        </code></pre>
+				    </section>
+				</section>
+				<section>
+				    <section class="mark">
+				        <h1>Set, Map</h1>
+				    </section>
+				    <section class="flex flex--one">
+				        <p class="paragraph">Map</p>
+				        <pre><code>
+'use strict';
+
+let map = new Map();
+
+map.set('1', 'str1');   // ключ-строка
+map.set(1, 'num1');     // число
+map.set(true, 'bool1'); // булевое значение
+
+// в обычном объекте это было бы одно и то же,
+// map сохраняет тип ключа
+alert( map.get(1)   ); // 'num1'
+alert( map.get('1') ); // 'str1'
+
+alert( map.size ); // 3
+				        </code></pre>
+				    </section>
+				    <section class="flex flex--one">
+				        <p class="paragraph">Set</p>
+				        <pre><code>
+'use strict';
+
+let set = new Set();
+
+let vasya = {name: "Вася"};
+let petya = {name: "Петя"};
+let dasha = {name: "Даша"};
+
+// посещения, некоторые пользователи заходят много раз
+set.add(vasya);
+set.add(petya);
+set.add(dasha);
+set.add(vasya);
+set.add(petya);
+
+// set сохраняет только уникальные значения
+alert( set.size ); // 3
+
+set.forEach( user => alert(user.name ) ); // Вася, Петя, Даша
+				        </code></pre>
+				    </section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				],
+                width: 1440
+			});
+
+		</script>
+	</body>
+</html>

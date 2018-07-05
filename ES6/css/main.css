@@ -1,0 +1,48 @@
+.reveal .browsers img {
+    border: none;
+}
+
+.mark h1 {
+    text-transform: none;
+}
+
+.flex {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex !important;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex pre {
+    width: 49%;
+    box-shadow: none;
+}
+
+hr {
+    width: 100%;
+}
+
+.flex .paragraph {
+    width: 100%; 
+}
+
+.reveal section pre {
+    box-shadow: none;
+}
+
+.flex--one pre {
+    width: 100%;
+}
+
+pre code {
+    overflow: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+}
